@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthSessionProvider } from "@/components/session-provider";
+import { getPortfolioData } from "@/lib/models";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,10 +15,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "John Doe - Portfolio",
-  description: "Full Stack Developer Portfolio showcasing skills and projects",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const portfolioData = await getPortfolioData();
+  
+  if (!portfolioData) {
+    return {
+      title: "Portfolio - Full Stack Developer",
+      description: "Full Stack Developer Portfolio showcasing skills and projects",
+    };
+  }
+
+  return {
+    title: `${portfolioData.name} - ${portfolioData.title}`,
+    description: portfolioData.description,
+    openGraph: {
+      title: `${portfolioData.name} - ${portfolioData.title}`,
+      description: portfolioData.description,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${portfolioData.name} - ${portfolioData.title}`,
+      description: portfolioData.description,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

@@ -5,9 +5,9 @@ import { getPortfolioData } from "@/lib/models";
 
 export default async function Home() {
   const portfolioData = await getPortfolioData() || {
-    name: "John Doe",
-    title: "Full Stack Developer",
-    description: "Passionate developer with 5+ years of experience building web applications. I love creating user-friendly interfaces and solving complex problems through clean, efficient code. Always eager to learn new technologies and contribute to meaningful projects.",
+    name: "Yogi B.",
+    title: "Grain Handler | Fullstack Web Developer",
+    description: "I'm all about diving into the latest in tech and love picking up new skills along the way. Currently, you'll find me tinkering with PHP (Codeigniter, Laravel, Slim), GO (Echo), AngularJS & Angular CLI, CSS, JavaScript, TypeScript, jQuery, Tailwind, Bootstrap, Node.js (Express.js), Redis, and Micro Services (RabbitMQ). I'm all about keeping it simple yet impactful in every project I dive into.",
     skills: [
       "React",
       "Next.js",
