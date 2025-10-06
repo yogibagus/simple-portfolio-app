@@ -123,7 +123,7 @@ export function sanitizePortfolioData(data: any): PortfolioData {
           platform: sanitizeString(social.platform || ''),
           url: sanitizeUrl(social.url || ''),
           icon: sanitizeString(social.icon || '')
-        })).filter(social => social.platform && social.url)
+        })).filter((social: any) => social.platform && social.url)
       : [],
     projects: Array.isArray(data.projects)
       ? data.projects.map((project: any) => ({
@@ -133,7 +133,7 @@ export function sanitizePortfolioData(data: any): PortfolioData {
             ? project.technologies.map((tech: any) => sanitizeString(tech)).filter(Boolean)
             : [],
           link: project.link ? sanitizeUrl(project.link) : undefined
-        })).filter(project => project.name && project.description)
+        })).filter((project: any) => project.name && project.description)
       : []
   }
 }

@@ -33,7 +33,16 @@ export async function getPortfolioData(): Promise<PortfolioData | null> {
     
     const data = await collection.findOne({})
     if (data) {
-      return data as PortfolioData
+      return {
+        _id: data._id?.toString(),
+        name: data.name,
+        title: data.title,
+        description: data.description,
+        skills: data.skills,
+        projects: data.projects,
+        socialMedia: data.socialMedia,
+        updatedAt: data.updatedAt
+      } as PortfolioData
     }
     
     // Return default portfolio data based on LinkedIn profile

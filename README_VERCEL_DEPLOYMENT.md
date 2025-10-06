@@ -7,7 +7,7 @@ Make sure your code is pushed to a GitHub repository:
 
 ```bash
 git add .
-git commit -m "Configure for Vercel deployment"
+git commit -m "Fix TypeScript errors and configure for Vercel deployment"
 git push origin main
 ```
 
