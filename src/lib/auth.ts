@@ -1,11 +1,8 @@
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import { MongoClient } from "mongodb"
+import clientPromise from "./mongodb"
 import { isEmailAllowed } from "./auth-utils"
-
-const client = new MongoClient(process.env.MONGODB_URI!)
-const clientPromise = client.connect()
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -14,6 +11,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  adapter: MongoDBAdapter(clientPromise) as any,
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account?.provider === "google" && user.email) {
@@ -38,8 +36,11 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/admin/login',
+    error: '/admin/access-denied',
   },
   session: {
     strategy: 'jwt',
+    maxAge: 24 * 60 * 60, // 24 hours
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }
